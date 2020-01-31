@@ -24,6 +24,11 @@ static NSString * const posterPathKey = @"poster_path";
         _summary = summary;
         _rating = rating;
         _posterPath = posterPath;
+        
+        if ([_posterPath isKindOfClass: [NSNull class]])
+        {
+            _posterPath = nil;
+        }
     }
     return self;
 }

@@ -21,5 +21,10 @@ class MovieTableViewCell: UITableViewCell {
         movieTitleLabel.text = movie.title
         movieRatingLabel.text = "\(movie.rating)"
         movieSummaryLabel.text = movie.summary
+        MOPMovieController.fetchMovieImage(movie) { (image) in
+            DispatchQueue.main.async {
+                self.movieImage.image = image
+            }
+        }
     }
 }//End of class

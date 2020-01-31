@@ -13,6 +13,7 @@ static NSString * const baseURLString = @"https://api.themoviedb.org/3/search/mo
 static NSString * const apiQuery = @"api_key";
 static NSString * const apiKeyKey = @"c7b605a4da539f0f14265ab6635a1b32";
 static NSString * const movieKey = @"query";
+static NSString * const imageBaseURL = @"http://image.tmdb.org/t/p/w500/";
 
 @implementation MOPMovieController
 
@@ -24,7 +25,7 @@ static NSString * const movieKey = @"query";
     NSURLComponents *components = [NSURLComponents componentsWithURL:baseURL resolvingAgainstBaseURL:true];
     
     components.queryItems = @[apiKey, movie];
-   
+    
     NSURL *finalURL = components.URL;
     NSLog(@"%@", finalURL);
     
@@ -65,5 +66,35 @@ static NSString * const movieKey = @"query";
             completion(movieArray);
         }
     }] resume];
+}
+
++ (void)fetchMovieImage:(MOPMovieInfo *)movie completion:(void (^)(UIImage * _Nullable))completion
+{
+    NSURL *imageBaseURL = [NSURL URLWithString:@"https://image.tmdb.org/t/p/w500"];
+    
+    if (movie.posterPath)
+    {
+        NSURL *finalURL = [imageBaseURL URLByAppendingPathComponent:movie.posterPath];
+        
+        [[[NSURLSession sharedSession] dataTaskWithURL:finalURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+          {
+            
+            if (error)
+            {
+                NSLog(@"%@", error);
+                completion(nil);
+                return;
+            }
+            
+            if (data)
+            {
+                UIImage * image = [[UIImage alloc] initWithData:data];
+                completion(image);
+            }
+        }] resume];
+    } else
+    {
+        completion([UIImage imageNamed:@"defaultMoviePoster"]);
+    }
 }
 @end
