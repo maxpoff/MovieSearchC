@@ -22,5 +22,4 @@ class MovieTableViewCell: UITableViewCell {
         movieRatingLabel.text = "\(movie.rating)"
         movieSummaryLabel.text = movie.summary
     }
-    
 }//End of class

@@ -25,7 +25,6 @@ static NSString * const movieKey = @"query";
     
     components.queryItems = @[apiKey, movie];
    
-    
     NSURL *finalURL = components.URL;
     NSLog(@"%@", finalURL);
     
@@ -63,7 +62,6 @@ static NSString * const movieKey = @"query";
                 MOPMovieInfo *movie = [[MOPMovieInfo alloc] initWithDictionary:movieDictionary];
                 [movieArray addObject:movie];
             }
-            
             completion(movieArray);
         }
     }] resume];

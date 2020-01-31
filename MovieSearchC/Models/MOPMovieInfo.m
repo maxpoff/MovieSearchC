@@ -29,7 +29,6 @@ static NSString * const posterPathKey = @"poster_path";
 }
 @end
 
-
 @implementation MOPMovieInfo (JSONConvertable)
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *, id> *)dictionary
@@ -41,5 +40,4 @@ static NSString * const posterPathKey = @"poster_path";
     
     return [self initWithTitle:title summary:summary rating:rating posterPath:posterPath];
 }
-
 @end
